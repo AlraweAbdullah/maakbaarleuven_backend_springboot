@@ -1,6 +1,7 @@
 package be.groep14.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 
@@ -15,6 +16,10 @@ public class Device {
     private long id;
     private String serial;
 
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private User user;
 
     public long getId() {
         return id;

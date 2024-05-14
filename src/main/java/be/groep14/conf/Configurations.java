@@ -37,7 +37,7 @@ public class Configurations implements WebMvcConfigurer {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .requestMatchers("/css/**", "/api/**", "/error")
-                .requestMatchers(antMatcher("/h2/**")); // https://stackoverflow.com/questions/74680244/h2-database-console-not-opening-with-spring-security;
+                .requestMatchers(antMatcher("/h2-console/**")); // https://stackoverflow.com/questions/74680244/h2-database-console-not-opening-with-spring-security;
     }
 
 

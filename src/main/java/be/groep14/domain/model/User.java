@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(
-        name = "users",
+        name="`user`",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})}
 )
 public class User {
@@ -22,7 +22,7 @@ public class User {
     private String password;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "storage", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Device> devices;
 
     public long getId() {

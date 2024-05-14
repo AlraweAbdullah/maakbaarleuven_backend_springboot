@@ -36,7 +36,7 @@ Request Body:
   "name": "UpdatedName",
   "lastname": "UpdatedLastName",
   "email": "updated.email@example.com",
-  "password": "newpassword123"
+  "password": "newPassword123"
 }
 ```
 

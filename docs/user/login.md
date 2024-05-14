@@ -26,7 +26,7 @@ Request Body:
 
 ```Json
 {
-"email": "user@example.com",
+"email": "john.doe@example.com",
 "password": "password123"
 }
 ```
@@ -37,8 +37,8 @@ Response (HTTP Status 200 OK):
 ```json
 {
   "id": 1,
-  "name": "UpdatedName",
-  "lastname": "UpdatedLastName",
-  "email": "updated.email@example.com",
+  "name": "John",
+  "lastname": "Doe",
+  "email": "john.doe@example.com"
 }
 ```

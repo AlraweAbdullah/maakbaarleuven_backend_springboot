@@ -15,7 +15,7 @@ Updates an existing device with new information.
 
 ```json
 {
-    "serial": "updated_device"
+    "name": "updated_device"
 }
 ```
 
@@ -27,7 +27,7 @@ Request:
 PUT /api/device/update/4
 
 {
-    "serial": "updated_device"
+    "name": "updated_device"
 }
 ```
 
@@ -36,6 +36,6 @@ Response:
 ```json
 {
     "id": 4,
-    "serial": "updated_device"
+    "name": "updated_device"
 }
 ```

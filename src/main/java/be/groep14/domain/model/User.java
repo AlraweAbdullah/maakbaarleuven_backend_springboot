@@ -64,5 +64,23 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void addDevice(Device device) {
+        getDevices().add(device);
+        device.setUser(this);
+    }
+
+    public Set<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Set<Device> devices) {
+        this.devices = devices;
+    }
+
+    public void removeDevice(Device device) {
+        device.setUser(null);
+    }
+
 }
 

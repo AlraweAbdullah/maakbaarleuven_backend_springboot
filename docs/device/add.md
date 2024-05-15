@@ -11,7 +11,7 @@ Adds a new device to the system.
 
 ```json
 {
-    "serial": "new_device"
+    "name": "new_device"
 }
 ```
 
@@ -23,7 +23,7 @@ Request:
 POST /api/device/add
 
 {
-    "serial": "new_device"
+    "name": "new_device"
 }
 ```
 
@@ -32,6 +32,6 @@ Response:
 ```json
 {
     "id": 4,
-    "serial": "new_device"
+    "name": "new_device"
 }
 ```

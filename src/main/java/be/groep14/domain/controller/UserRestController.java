@@ -1,9 +1,7 @@
 package be.groep14.domain.controller;
 
 import be.groep14.domain.exception.ServiceException;
-import be.groep14.domain.model.DeviceDto;
-import be.groep14.domain.model.User;
-import be.groep14.domain.model.UserDto;
+import be.groep14.domain.model.*;
 import be.groep14.domain.service.UserService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -15,10 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/user")
@@ -45,13 +40,13 @@ public class UserRestController {
     }
 
     @PostMapping("/login")
-    public UserDto login(@RequestParam("email") String email, @RequestParam("password") String password) {
-        return toDto(service.login(email, password));
+    public UserDto login(@Valid @RequestBody UserLoginDto userLoginDto) {
+        return toDto(service.login(userLoginDto.getEmail(),userLoginDto.getPassword()));
     }
 
     @PostMapping("/changePassword")
-    public UserDto changePassword(@RequestParam("email") String email, @RequestParam("password") String password) {
-        return toDto(service.changePassword(email, password));
+    public UserDto changePassword(@Valid @RequestBody UserLoginDto userLoginDto) {
+        return toDto(service.changePassword(userLoginDto.getEmail(),userLoginDto.getPassword()));
     }
 
     @PostMapping("/add")
@@ -114,6 +109,8 @@ public class UserRestController {
         dto.setLastname(user.getLastname());
         dto.setPassword(user.getPassword());
         dto.setEmail(user.getEmail());
+        dto.setDevices(user.getDevices());
+
         return dto;
 
     }

@@ -24,15 +24,15 @@ Response:
 [
     {
         "id": 1,
-        "serial": "device1"
+        "name": "device1"
     },
     {
         "id": 2,
-        "serial": "device2"
+        "name": "device2"
     },
     {
         "id": 3,
-        "serial": "device3"
+        "name": "device3"
     }
 ]
 ```

@@ -3,7 +3,10 @@ package be.groep14.domain.controller;
 import be.groep14.domain.exception.ServiceException;
 import be.groep14.domain.model.Device;
 import be.groep14.domain.model.DeviceDto;
+import be.groep14.domain.model.DeviceType;
+import be.groep14.domain.model.DeviceTypeDto;
 import be.groep14.domain.service.DeviceService;
+import be.groep14.domain.service.DeviceTypeService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,60 +24,62 @@ import java.util.*;
 public class DeviceRestController {
 
     @Autowired
-    private DeviceService service;
+    private DeviceService deviceService;
+
+
 
     private static Logger LOGGER = LoggerFactory.getLogger(DeviceRestController.class);
 
     @GetMapping("")
     public Iterable<DeviceDto> overview() {
-        List<Device> devices = service.getDevices();
+        List<Device> devices = deviceService.getDevices();
         if (devices.isEmpty()) {
             createSampleData();
-            devices = service.getDevices();
+            devices = deviceService.getDevices();
         }
         return toDto(devices);
     }
 
     @GetMapping("/{id}")
     public DeviceDto getDeviceById(@PathVariable("id") long id) {
-        return toDto(service.getDeviceById(id));
+        return toDto(deviceService.getDeviceById(id));
     }
 
     @PostMapping("/add")
     public DeviceDto add(@Valid @RequestBody DeviceDto deviceDto) {
-        return toDto(service.createDevice(deviceDto));
+        return toDto(deviceService.createDevice(deviceDto));
     }
 
 
     @DeleteMapping("/delete/{id}")
     public DeviceDto deleteById(@PathVariable("id") long id) {
-        return toDto(service.deleteDevice(id));
+        return toDto(deviceService.deleteDevice(id));
     }
 
     @PutMapping("/update/{id}")
     public DeviceDto put(@PathVariable("id") long id, @Valid @RequestBody DeviceDto deviceDto) {
-        return toDto(service.updateDevice(id, deviceDto));
+        return toDto(deviceService.updateDevice(id, deviceDto));
     }
 
 
     private void createSampleData() {
         DeviceDto deviceDto1 = new DeviceDto();
+        DeviceType deviceType = new DeviceType();
+        deviceType.setName("Stofzuiger");
         deviceDto1.setSerial("device1");
+        deviceDto1.setDeviceType(deviceType.getName());
 
 
         DeviceDto deviceDto2 = new DeviceDto();
-        deviceDto2.setSerial("device2");
-
-
-        DeviceDto deviceDto3 = new DeviceDto();
-        deviceDto3.setSerial("device3");
+        DeviceType deviceType2 = new DeviceType();
+        deviceType2.setName("Stofzuiger");
+        deviceDto2.setSerial("device1");
+        deviceDto2.setDeviceType(deviceType2.getName());
 
 
         try {
-            service.createDevice(deviceDto1);
-            service.createDevice(deviceDto2);
-            service.createDevice(deviceDto3);
-
+            deviceService.createDevice(deviceDto1);
+            deviceService.createDevice(deviceDto2);
 
         } catch (Exception e) {
             LOGGER.error("Error adding sample date");
@@ -106,9 +111,9 @@ public class DeviceRestController {
         DeviceDto dto = new DeviceDto();
         dto.setId(device.getId());
         dto.setSerial(device.getSerial());
-
+        //dto.setUserEmail(device.getUser().getEmail());
+        dto.setDeviceType(device.getDeviceType().getName());
         return dto;
-
     }
 
 

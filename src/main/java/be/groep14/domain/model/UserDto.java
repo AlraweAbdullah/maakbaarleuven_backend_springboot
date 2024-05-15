@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.Set;
+
 public class UserDto {
     private long id;
     @NotBlank()
@@ -26,6 +28,15 @@ public class UserDto {
     @Size(min = 5, message = "user.email.not.valid")
     private String email;
 
+    private Set<Device> devices;
+
+    public Set<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Set<Device> devices) {
+        this.devices = devices;
+    }
 
     public String getName() {
         return name;

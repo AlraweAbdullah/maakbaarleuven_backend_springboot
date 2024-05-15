@@ -9,6 +9,26 @@ public class DeviceDto {
     @Size(min = 5, message = "device.serial.not.valid")
     private String serial;
 
+    private String userEmail = "unknown";
+    @NotBlank()
+    private String deviceType;
+
+
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
     public DeviceDto(){}
 

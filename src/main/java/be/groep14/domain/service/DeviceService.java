@@ -2,9 +2,7 @@ package be.groep14.domain.service;
 
 import be.groep14.domain.exception.ServiceException;
 
-import be.groep14.domain.model.Device;
-import be.groep14.domain.model.DeviceDto;
-import be.groep14.domain.model.DeviceRepository;
+import be.groep14.domain.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -15,6 +13,8 @@ import java.util.List;
 public class DeviceService {
     @Autowired
     private DeviceRepository deviceRepository;
+    @Autowired
+    private DeviceTypeRepository deviceTypeRepository;
 
     public List<Device> getDevices() {
         return deviceRepository.findAll();
@@ -45,7 +45,12 @@ public class DeviceService {
     private Device saveDevice(Device device, DeviceDto dto){
         try {
             device.setSerial(dto.getSerial());
-
+            DeviceType deviceTypeTest = new DeviceType();
+            //Test device type
+            deviceTypeTest.setName(dto.getDeviceType());
+            deviceTypeRepository.save(deviceTypeTest);
+            DeviceType deviceType = deviceTypeRepository.findByName(dto.getDeviceType()).orElseThrow(() -> new ServiceException("get", "Toestel type  {" + dto.getDeviceType() + "} is niet gevonden."));
+            device.setDeviceType(deviceType);
             return deviceRepository.save(device);
 
         }catch (DataIntegrityViolationException e){

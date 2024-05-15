@@ -24,6 +24,6 @@ Response:
 ```json
 {
     "id": 4,
-    "serial": "new_device"
+    "name": "new_device"
 }
 ```

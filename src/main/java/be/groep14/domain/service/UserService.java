@@ -1,5 +1,6 @@
 package be.groep14.domain.service;
 
+import be.groep14.domain.exception.DomainException;
 import be.groep14.domain.exception.ServiceException;
 import be.groep14.domain.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -86,5 +88,37 @@ public class UserService {
             throw new ServiceException("add", "Gebruiker met mail :  {" + user.getEmail() + "} bestaat al.");
         }
 
+    }
+
+    public Device addDeviceToUser(long userId, Device device) {
+        try {
+            User user = findById(userId);
+            user.addDevice(device);
+            userRepository.save(user);
+            return device;
+        }catch (DomainException exception){
+            throw new ServiceException("add", exception.getMessage());
+        }
+    }
+
+
+    public Set<Device> getDevices(long userId) {
+        User user = findById(userId);
+        return user.getDevices();
+    }
+
+
+    public Device removeDeviceFromUser(long userId, Device device) {
+        User user = findById(userId);
+        Set<Device> userDevices = getDevices(userId);
+
+        if(!userDevices.contains(device)){
+            throw  new ServiceException("delete", "device.{" + device.getSerial() + "}.is.not.in.user.{" + user.getEmail() + "} devices" );
+        }
+        user.removeDevice(device);
+
+        userRepository.save(user);
+
+        return device;
     }
 }

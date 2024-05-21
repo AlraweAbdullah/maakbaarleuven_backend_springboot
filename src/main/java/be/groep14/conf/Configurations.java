@@ -36,6 +36,7 @@ public class Configurations implements WebMvcConfigurer {
 
 
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http

@@ -1,41 +1,56 @@
 package be.groep14.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.List;
 
 public class UserDto {
     private long id;
     @NotBlank()
-    @Size(min = 5, message = "user.name.not.valid")
+    @Size(min = 3, message = "{user.name.not.valid}")
     private String name;
 
     @NotBlank()
-    @Size(min = 5, message = "user.lastname.not.valid")
+    @Size(min = 3, message = "{user.lastname.not.valid}")
     private String lastname;
 
 
     @NotBlank()
-    @Size(min = 5, message = "user.password.not.valid")
-    private String password;
+    @Size(min = 5, message = "{user.street.not.valid}")
+    private String street;
 
+    @Size(min = 1, message = "{user.houseNr.not.valid}")
+    private String houseNr;
+
+    @NotNull
+    private LocalDate birthdate;
 
     @NotBlank()
-    @Email
-    @Size(min = 5, message = "user.email.not.valid")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Size(min = 5, message = "{user.password.not.valid}")
+    private String password;
+
+    @Email(message = "{user.email.not.valid}")
+
     private String email;
 
-    private Set<Device> devices;
+    private String persons;
 
-    public Set<Device> getDevices() {
-        return devices;
+    private String telephone;
+    private List<Device> devices;
+
+    public long getId() {
+        return id;
     }
 
-    public void setDevices(Set<Device> devices) {
-        this.devices = devices;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -54,6 +69,30 @@ public class UserDto {
         this.lastname = lastname;
     }
 
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNr() {
+        return houseNr;
+    }
+
+    public void setHouseNr(String houseNr) {
+        this.houseNr = houseNr;
+    }
+
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -70,18 +109,28 @@ public class UserDto {
         this.email = email;
     }
 
-    public UserDto(){}
-
-    public long getId() {
-        return id;
+    public String getPersons() {
+        return persons;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setPersons(String persons) {
+        this.persons = persons;
     }
 
+    public String getTelephone() {
+        return telephone;
+    }
 
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
 }
-
 

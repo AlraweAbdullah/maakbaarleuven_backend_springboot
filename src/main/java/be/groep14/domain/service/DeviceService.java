@@ -13,50 +13,72 @@ import java.util.List;
 public class DeviceService {
     @Autowired
     private DeviceRepository deviceRepository;
+
     @Autowired
-    private DeviceTypeRepository deviceTypeRepository;
+    private DeviceTypeService deviceTypeService;
+
+    @Autowired
+    private DeviceStatusService deviceStatusService;
+
+
+    @Autowired
+    private UserService userService;
 
     public List<Device> getDevices() {
         return deviceRepository.findAll();
     }
 
 
-
-    public Device createDevice(DeviceDto dto){
-        return saveDevice(new Device(), dto);
+    public Device create(DeviceDto deviceDto) {
+        User user = userService.findById(deviceDto.getUserId());
+        DeviceType deviceType = deviceTypeService.findByName(deviceDto.getDeviceType());
+        DeviceStatus deviceStatus = deviceStatusService.findByName(deviceDto.getDeviceStatus());
+        return saveDevice(new Device(), deviceDto, user, deviceType, deviceStatus);
     }
 
-    public Device updateDevice(Long id,DeviceDto dto) {
-        return  saveDevice(getDeviceById(id), dto);
+    public Device update(Long id, DeviceDto deviceDto) {
+        User user = userService.findById(deviceDto.getUserId());
+        DeviceType deviceType = deviceTypeService.findByName(deviceDto.getDeviceType());
+        DeviceStatus deviceStatus = deviceStatusService.findByName(deviceDto.getDeviceStatus());
+        return saveDevice(findById(id), deviceDto, user, deviceType, deviceStatus);
     }
 
-    public Device getDeviceById(Long id) {
+    public Device findById(Long id) {
         return deviceRepository.findById(id)
                 .orElseThrow(() -> new ServiceException("get", "Toestel met id {" + id + "} is niet gevonden."));
     }
 
-    public Device deleteDevice(long id) {
-        Device device = getDeviceById(id);
+    public Device delete(long id) {
+        Device device = findById(id);
         deviceRepository.delete(device);
         return device;
     }
 
 
-    private Device saveDevice(Device device, DeviceDto dto){
+    private Device saveDevice(Device device, DeviceDto dto, User user, DeviceType deviceType, DeviceStatus deviceStatus) {
         try {
             device.setSerial(dto.getSerial());
-            DeviceType deviceTypeTest = new DeviceType();
-            //Test device type
-            deviceTypeTest.setName(dto.getDeviceType());
-            deviceTypeRepository.save(deviceTypeTest);
-            DeviceType deviceType = deviceTypeRepository.findByName(dto.getDeviceType()).orElseThrow(() -> new ServiceException("get", "Toestel type  {" + dto.getDeviceType() + "} is niet gevonden."));
+            device.setUser(user);
             device.setDeviceType(deviceType);
+            device.setDeviceStatus(deviceStatus);
+            device.setMark(dto.getMark());
             return deviceRepository.save(device);
-
-        }catch (DataIntegrityViolationException e){
-            throw new ServiceException("add","Toestel met serieel :  {" + device.getSerial() + "} bestaat al.");
+        } catch (DataIntegrityViolationException e) {
+            throw new ServiceException("add", "Toestel met serieel [" + device.getSerial() + "] bestaat al");
+        } catch (IllegalArgumentException illegalArgumentException) {
+            throw new ServiceException("add", "Ongeldige toestelstatus {" + dto.getDeviceStatus() + "}");
         }
     }
 
 
+    public List<Device> findByUserId(long userId) {
+        return deviceRepository.findByUserId(userId);
+    }
+
+    public Device updateDeviceStatus(long deviceId, String deviceStatus) {
+        Device device = findById(deviceId);
+        DeviceStatus status = deviceStatusService.findByName(deviceStatus);
+        device.setDeviceStatus(status);
+        return deviceRepository.save(device);
+    }
 }

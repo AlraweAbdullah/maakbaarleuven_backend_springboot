@@ -7,16 +7,17 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "deviceType", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
+@Table(name = "deviceStatus", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
 
-public class DeviceType {
+public class DeviceStatus {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
 
-    @JsonManagedReference("deviceType-devices")
-    @OneToMany(mappedBy = "deviceType", cascade = CascadeType.ALL)
+    @JsonManagedReference("deviceStatus-devices")
+    @OneToMany(mappedBy = "deviceStatus", cascade = CascadeType.ALL)
     private List<Device> devices;
 
     public long getId() {
@@ -41,15 +42,6 @@ public class DeviceType {
 
     public void setDevices(List<Device> devices) {
         this.devices = devices;
-    }
-
-    public void addDevice(Device device) {
-        getDevices().add(device);
-        device.setDeviceType(this);
-    }
-
-    public void remove(Device device) {
-        device.setDeviceType(null);
     }
 }
 

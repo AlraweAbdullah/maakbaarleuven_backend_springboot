@@ -2,16 +2,63 @@ package be.groep14.domain.model;
 
 
 import jakarta.validation.constraints.*;
+import java.util.*;
 
 public class DeviceDto {
     private long id;
-    @NotBlank()
-    @Size(min = 5, message = "device.serial.not.valid")
+    @NotNull()
+    @Size(min = 5, message = "{device.serial.not.valid}")
     private String serial;
 
-    private String userEmail = "unknown";
-    @NotBlank()
+    @NotNull
+    @Size(min = 3, message = "{device.mark.not.valid}")
+    private String mark;
+
+    @Min(value = 1, message = "{device.userId.not.valid}")
+    private long userId;
+
     private String deviceType;
+
+
+    @Pattern(regexp = "Actief|Niet actief|Defect|Af staan", message = "{deviceStatus.name.not.valid}")
+    private String deviceStatus;
+
+    private List<DeviceMaintenance> maintenances;
+
+
+    public DeviceDto() {
+        this.maintenances = new ArrayList<>();
+    }
+
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
+
+    public List<DeviceMaintenance> getMaintenances() {
+        return maintenances;
+    }
+
+    public void setMaintenances(List<DeviceMaintenance> maintenances) {
+        this.maintenances = maintenances;
+    }
+
+    public void addMaintenance(DeviceMaintenance deviceMaintenance) {
+
+        this.maintenances.add(deviceMaintenance);
+    }
+
+    public String getDeviceStatus() {
+        return deviceStatus;
+    }
+
+    public void setDeviceStatus(String deviceStatus) {
+        this.deviceStatus = deviceStatus;
+    }
 
 
     public String getDeviceType() {
@@ -22,15 +69,14 @@ public class DeviceDto {
         this.deviceType = deviceType;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
-    public DeviceDto(){}
 
     public long getId() {
         return id;

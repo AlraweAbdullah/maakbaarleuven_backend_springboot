@@ -7,6 +7,6 @@ import java.util.Optional;
 
 
 @Repository
-public interface DeviceTypeRepository extends JpaRepository<DeviceType, Long> {
-    Optional<DeviceType> findByName(String name);
+public interface DeviceStatusRepository extends JpaRepository<DeviceStatus, Long> {
+    Optional<DeviceStatus> findByName(String name);
 }

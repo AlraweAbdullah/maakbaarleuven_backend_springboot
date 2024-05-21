@@ -6,16 +6,16 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
-public class DeviceTypeDto {
+public class DeviceStatusDto {
     private long id;
     @NotBlank()
-    @Size(min = 3, message = "deviceType.name.not.valid")
-    private String name;
+    @Size(min = 3, message = "{deviceStatus.name.not.valid}")
+    private String status;
 
     private List<Device> devices;
 
 
-    public DeviceTypeDto() {
+    public DeviceStatusDto() {
     }
 
     public long getId() {
@@ -30,8 +30,8 @@ public class DeviceTypeDto {
         return devices;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String status) {
+        this.status = status;
     }
 
     public void setDevices(List<Device> devices) {
@@ -39,7 +39,7 @@ public class DeviceTypeDto {
     }
 
     public String getName() {
-        return name;
+        return status;
     }
 }
 

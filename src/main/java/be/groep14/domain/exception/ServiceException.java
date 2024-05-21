@@ -1,6 +1,6 @@
 package be.groep14.domain.exception;
 
-public class ServiceException extends RuntimeException{
+public class ServiceException extends RuntimeException {
 
     private String action;
 

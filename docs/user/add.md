@@ -10,12 +10,14 @@ Adds a new user to the system.
 
 The request body should be a JSON object representing the `UserDto` of the user to be added.
 
-| Field     | Type   | Required | Description        |
-|-----------|--------|----------|--------------------|
-| `name`    | String | Yes      | The user's name.   |
-| `lastname`| String | Yes      | The user's last name. |
-| `email`   | String | Yes      | The user's email address. |
-| `password`| String | Yes      | The user's password. |
+| Field      | Type   | Required | Description               |
+|------------|--------|----------|---------------------------|
+| `name`     | String | Yes      | The user's name.          |
+| `lastname` | String | Yes      | The user's last name.     |
+| `email`    | String | Yes      | The user's email address. |
+| `password` | String | Yes      | The user's password.      |
+| `houseNr`  | String | No       | The user's house nuber.   |
+
 
 ### Example
 

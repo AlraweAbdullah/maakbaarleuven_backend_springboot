@@ -2,31 +2,30 @@ package be.groep14.domain.controller;
 
 import be.groep14.domain.exception.ServiceException;
 import be.groep14.domain.model.*;
-import be.groep14.domain.service.DeviceService;
+import be.groep14.domain.service.DeviceTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static be.groep14.domain.util.ErrorCatcher.catchErrors;
-import static be.groep14.domain.util.ToDto.toDeviceDtoList;
+import static be.groep14.domain.util.ToDto.toDeviceTypeDtoList;
 
 @CrossOrigin(origins = {"http://127.0.0.1:8080"}, methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.POST})
 @RestController
-@RequestMapping("/api/user-device")
-public class UserDeviceRestController {
+@RequestMapping("/api/deviceType")
+public class DeviceTypeRestController {
     @Autowired
-    private DeviceService deviceService;
+    private DeviceTypeService deviceTypeService;
 
-    @GetMapping("/{userId}/devices")
-    public List<DeviceDto> addMaintenanceToDevice(@PathVariable("userId") long userId) {
-        return toDeviceDtoList(deviceService.findByUserId(userId));
+    @GetMapping("")
+    public Iterable<DeviceTypeDto> overview() {
+        List<DeviceType> devicesTypes = deviceTypeService.getDeviceTypes();
+        return toDeviceTypeDtoList(devicesTypes);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -34,5 +33,4 @@ public class UserDeviceRestController {
     public Map<String, String> handleValidationExceptions(Exception ex) {
         return catchErrors(ex);
     }
-
 }

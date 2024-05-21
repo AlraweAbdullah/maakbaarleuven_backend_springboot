@@ -4,14 +4,11 @@ package be.groep14.domain.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.util.Set;
-
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table(
-        name="`user`",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})}
-)
+@Table(name = "`user`", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +18,56 @@ public class User {
     private String lastname;
     private String password;
 
-    @JsonManagedReference
+    private int telephone;
+    private String street;
+    private String houseNr;
+    private LocalDate birthdate;
+    private int persons;
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNr() {
+        return houseNr;
+    }
+
+    public void setHouseNr(String houseNr) {
+        this.houseNr = houseNr;
+    }
+
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public int getPersons() {
+        return persons;
+    }
+
+    public void setPersons(int persons) {
+        this.persons = persons;
+    }
+
+    public int getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(int telephone) {
+        this.telephone = telephone;
+    }
+
+
+    @JsonManagedReference("user-devices")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Device> devices;
+    private List<Device> devices;
 
     public long getId() {
         return id;
@@ -70,11 +114,11 @@ public class User {
         device.setUser(this);
     }
 
-    public Set<Device> getDevices() {
+    public List<Device> getDevices() {
         return devices;
     }
 
-    public void setDevices(Set<Device> devices) {
+    public void setDevices(List<Device> devices) {
         this.devices = devices;
     }
 

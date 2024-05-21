@@ -18,6 +18,11 @@ public class DeviceTypeDto {
     public DeviceTypeDto() {
     }
 
+    public DeviceTypeDto(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

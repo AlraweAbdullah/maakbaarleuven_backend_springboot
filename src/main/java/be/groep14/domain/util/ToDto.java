@@ -6,17 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class  ToDto {
-    public static DeviceMaintenanceDto toDeviceMaintenanceDto(DeviceMaintenance deviceMaintenance) {
-        DeviceMaintenanceDto dto = new DeviceMaintenanceDto();
-        dto.setId(deviceMaintenance.getId());
-        dto.setAction(deviceMaintenance.getAction());
-        dto.setPeriod(deviceMaintenance.getPeriod());
-        return dto;
+    public static DeviceMaintenanceDto toDeviceMaintenanceDto(DeviceMaintenance deviceMaintenance)  {
+        return new DeviceMaintenanceDto(deviceMaintenance.getId(), deviceMaintenance.getAction(), deviceMaintenance.getPeriod());
     }
 
     public static List<DeviceMaintenanceDto> toDeviceMaintenanceDtoList(List<DeviceMaintenance> deviceMaintenances) {
         List<DeviceMaintenanceDto> deviceMaintenanceDtoList = new ArrayList<>();
-
         for (DeviceMaintenance deviceMaintenance : deviceMaintenances) {
             deviceMaintenanceDtoList.add(toDeviceMaintenanceDto(deviceMaintenance));
         }
@@ -24,20 +19,11 @@ public class  ToDto {
     }
 
     public static DeviceDto toDeviceDto(Device device) {
-        DeviceDto dto = new DeviceDto();
-        dto.setId(device.getId());
-        dto.setSerial(device.getSerial());
-        dto.setUserId(device.getUser().getId());
-        dto.setDeviceType(device.getDeviceType().getName());
-        dto.setMaintenances(device.getDeviceMaintenances());
-        dto.setDeviceStatus(device.getDeviceStatus().getName());
-        dto.setMark(device.getMark());
-        return dto;
+        return new DeviceDto(device.getId(), device.getSerial(), device.getMark(), device.getUser().getId(), device.getDeviceType().getName(),device.getDeviceStatus().getName(), device.getDeviceMaintenances());
     }
 
     public static List<DeviceDto> toDeviceDtoList(List<Device> devices) {
         List<DeviceDto> deviceDtoList = new ArrayList<>();
-
         for (Device device : devices) {
             deviceDtoList.add(toDeviceDto(device));
         }
@@ -45,10 +31,7 @@ public class  ToDto {
     }
 
     public static DeviceStatusDto toDeviceStatusDto(DeviceStatus deviceStatus) {
-        DeviceStatusDto dto = new DeviceStatusDto();
-        dto.setId(deviceStatus.getId());
-        dto.setName(deviceStatus.getName());
-        return dto;
+        return new DeviceStatusDto(deviceStatus.getId(),deviceStatus.getName());
     }
 
     public static List<DeviceStatusDto> toDeviceStatusDtoList(List<DeviceStatus> deviceStatuses) {
@@ -61,10 +44,7 @@ public class  ToDto {
     }
 
     public static DeviceTypeDto toDeviceTypeDto(DeviceType deviceType) {
-        DeviceTypeDto dto = new DeviceTypeDto();
-        dto.setId(deviceType.getId());
-        dto.setName(deviceType.getName());
-        return dto;
+        return new DeviceTypeDto(deviceType.getId(), deviceType.getName());
     }
 
     public static List<DeviceTypeDto> toDeviceTypeDtoList(List<DeviceType> deviceTypes) {
@@ -77,20 +57,19 @@ public class  ToDto {
     }
 
     public static UserDto toUserDto(User user) {
-        UserDto dto = new UserDto();
-        dto.setId(user.getId());
-        dto.setName(user.getName());
-        dto.setLastname(user.getLastname());
-        dto.setEmail(user.getEmail());
-        dto.setDevices(user.getDevices());
-        dto.setBirthdate(user.getBirthdate());
-        dto.setTelephone(user.getTelephone() == 0 ? "Geen" : String.valueOf(user.getTelephone()));
-        dto.setPersons(user.getPersons() == 0 ? "Geen" : String.valueOf(user.getPersons()));
-        dto.setHouseNr(user.getHouseNr());
-        dto.setStreet(user.getStreet());
-        dto.setPassword(user.getPassword());
-        dto.setDevices(user.getDevices());
-        return dto;
+        return new UserDto(
+                user.getId(),
+                user.getName(),
+                user.getLastname(),
+                user.getEmail(),
+                user.getDevices(),
+                user.getBirthdate(),
+                user.getTelephone() == 0 ? "Geen" : String.valueOf(user.getTelephone()),
+                user.getPersons() == 0 ? "Geen" : String.valueOf(user.getPersons()),
+                user.getHouseNr(),
+                user.getStreet(),
+                user.getPassword()
+        );
     }
 
     public static List<UserDto> toUserDtoList(List<User> users) {
@@ -103,11 +82,7 @@ public class  ToDto {
     }
 
     public static AdminDto toAdminDto(Admin admin) {
-        AdminDto dto = new AdminDto();
-        dto.setId(admin.getId());
-        dto.setEmail(admin.getEmail());
-        dto.setPassword(admin.getPassword());
-        return dto;
+        return new AdminDto(admin.getId(), admin.getEmail(), admin.getPassword());
     }
 
     public static List<AdminDto> toAdminDtoList(List<Admin> admins) {

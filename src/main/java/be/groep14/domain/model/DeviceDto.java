@@ -25,6 +25,15 @@ public class DeviceDto {
 
     private List<DeviceMaintenance> maintenances;
 
+    public DeviceDto(long id, String serial, String mark, long userId, String deviceType, String deviceStatus, List<DeviceMaintenance> maintenances) {
+        this.id = id;
+        this.serial = serial;
+        this.mark = mark;
+        this.userId = userId;
+        this.deviceType = deviceType;
+        this.deviceStatus = deviceStatus;
+        this.maintenances = maintenances;
+    }
 
     public DeviceDto() {
         this.maintenances = new ArrayList<>();

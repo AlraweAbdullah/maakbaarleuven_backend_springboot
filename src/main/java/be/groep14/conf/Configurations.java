@@ -33,29 +33,13 @@ public class Configurations implements WebMvcConfigurer {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests(authorizeRequests ->
-                        authorizeRequests
-                                .requestMatchers(antMatcher(HttpMethod.POST, "/api/admin")).denyAll()
-                                .requestMatchers(antMatcher("/h2-console/**")).permitAll()
-                                .requestMatchers(antMatcher("/api/**")).permitAll()
-                                .anyRequest().authenticated()
-                )
-                .formLogin()
-                .and()
-                .httpBasic();
-
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-
-        return http.build();
+    @Bean // Turn off security for certain URLs
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring()
+                .requestMatchers("/css/**", "/api/**", "/error")
+                .requestMatchers(antMatcher("/h2/**")); // https://stackoverflow.com/questions/74680244/h2-database-console-not-opening-with-spring-security;
     }
+
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();

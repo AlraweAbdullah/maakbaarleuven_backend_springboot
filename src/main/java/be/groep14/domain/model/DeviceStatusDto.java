@@ -18,6 +18,11 @@ public class DeviceStatusDto {
     public DeviceStatusDto() {
     }
 
+    public DeviceStatusDto(long id, String status) {
+        this.id = id;
+        this.status = status;
+    }
+
     public long getId() {
         return id;
     }

@@ -18,6 +18,11 @@ public class DeviceMaintenanceDto {
     public DeviceMaintenanceDto() {
     }
 
+    public DeviceMaintenanceDto(long id, String action, String period) {
+        this.id = id;
+        this.action = action;
+        this.period = period;
+    }
 
     public long getId() {
         return id;

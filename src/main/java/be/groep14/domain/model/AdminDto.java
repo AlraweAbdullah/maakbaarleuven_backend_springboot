@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
 public class AdminDto {
     private long id;
 
@@ -16,6 +17,15 @@ public class AdminDto {
     @Email(message = "{admin.email.not.valid}")
     private String email;
 
+    public AdminDto() {
+
+    }
+
+    public AdminDto(long id, String email, String password) {
+        this.id = id;
+        this.password = password;
+        this.email = email;
+    }
 
     public long getId() {
         return id;

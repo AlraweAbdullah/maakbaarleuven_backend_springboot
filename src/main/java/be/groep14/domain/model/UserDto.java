@@ -36,13 +36,29 @@ public class UserDto {
     private String password;
 
     @Email(message = "{user.email.not.valid}")
-    
+
     private String email;
 
     private String persons;
 
     private String telephone;
     private List<Device> devices;
+
+    public UserDto() { }
+
+    public UserDto(long id, String name, String lastname, String email, List<Device> devices, LocalDate birthdate, String telephone, String persons, String houseNr, String street, String password) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.devices = devices;
+        this.birthdate = birthdate;
+        this.telephone = telephone;
+        this.persons = persons;
+        this.houseNr = houseNr;
+        this.street = street;
+        this.password = password;
+    }
 
     public long getId() {
         return id;

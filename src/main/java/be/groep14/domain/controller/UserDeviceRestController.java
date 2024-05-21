@@ -17,7 +17,6 @@ import java.util.Map;
 import static be.groep14.domain.util.ErrorCatcher.catchErrors;
 import static be.groep14.domain.util.ToDto.toDeviceDtoList;
 
-@CrossOrigin(origins = {"http://127.0.0.1:8080"}, methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.POST})
 @RestController
 @RequestMapping("/api/user-device")
 public class UserDeviceRestController {

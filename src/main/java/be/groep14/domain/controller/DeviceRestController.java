@@ -16,7 +16,6 @@ import static be.groep14.domain.util.ErrorCatcher.catchErrors;
 import static be.groep14.domain.util.ToDto.toDeviceDto;
 import static be.groep14.domain.util.ToDto.toDeviceDtoList;
 
-@CrossOrigin(origins = {"http://127.0.0.1:8080"}, methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.POST})
 @RestController
 @RequestMapping("/api/device")
 public class DeviceRestController {
@@ -37,7 +36,7 @@ public class DeviceRestController {
         return toDeviceDto(deviceService.findById(id));
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public DeviceDto add(@Valid @RequestBody DeviceDto deviceDto) {
         return toDeviceDto(deviceService.create(deviceDto));
     }

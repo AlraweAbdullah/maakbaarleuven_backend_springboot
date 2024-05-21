@@ -8,14 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
 import java.util.Map;
-
 import static be.groep14.domain.util.ErrorCatcher.catchErrors;
 import static be.groep14.domain.util.ToDto.toDeviceTypeDtoList;
 
-@CrossOrigin(origins = {"http://127.0.0.1:8080"}, methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.POST})
 @RestController
 @RequestMapping("/api/deviceType")
 public class DeviceTypeRestController {

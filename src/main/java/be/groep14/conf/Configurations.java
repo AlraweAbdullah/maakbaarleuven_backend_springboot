@@ -40,16 +40,12 @@ public class Configurations implements WebMvcConfigurer {
 
     @Bean // Turn off security for certain URLs
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-                .requestMatchers("/css/**", "/api/**", "/error")
-                .requestMatchers(antMatcher("/h2-console/**")); // https://stackoverflow.com/questions/74680244/h2-database-console-not-opening-with-spring-security;
+        return (web) -> web.ignoring().requestMatchers("/css/**", "/api/**", "/error").requestMatchers(antMatcher("/h2-console/**")); // https://stackoverflow.com/questions/74680244/h2-database-console-not-opening-with-spring-security;
     }
-
 
     @Bean
     public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource
-                = new ReloadableResourceBundleMessageSource();
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 
         messageSource.setBasename("classpath:messages");
         messageSource.setDefaultEncoding("UTF-8");
@@ -63,8 +59,9 @@ public class Configurations implements WebMvcConfigurer {
         return bean;
     }
 
-
-
-
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS").allowedOrigins("*");
+    }
 }
 

@@ -20,7 +20,6 @@ public class UserDto {
     @Size(min = 3, message = "{user.lastname.not.valid}")
     private String lastname;
 
-
     @NotBlank()
     @Size(min = 5, message = "{user.street.not.valid}")
     private String street;

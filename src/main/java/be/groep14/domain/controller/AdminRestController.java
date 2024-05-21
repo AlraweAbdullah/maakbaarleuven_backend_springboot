@@ -17,7 +17,6 @@ import static be.groep14.domain.util.ErrorCatcher.catchErrors;
 import static be.groep14.domain.util.ToDto.toAdminDto;
 import static be.groep14.domain.util.ToDto.toAdminDtoList;
 
-@CrossOrigin(origins = {"http://127.0.0.1:8080"}, methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.POST})
 @RestController
 @RequestMapping("/api/admin")
 public class AdminRestController {
@@ -35,7 +34,7 @@ public class AdminRestController {
         return toAdminDto(adminService.findById(id));
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public AdminDto add(@Valid @RequestBody AdminDto adminDto) {
         return toAdminDto(adminService.create(adminDto));
     }

@@ -23,7 +23,7 @@ The request body should be a JSON object representing the `UserDto` of the user 
 
 Request:
 ```
-POST api/user
+POST api/user/add
 ```
 
 Request Body:

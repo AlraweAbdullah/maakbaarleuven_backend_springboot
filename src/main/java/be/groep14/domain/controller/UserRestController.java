@@ -16,7 +16,6 @@ import static be.groep14.domain.util.ErrorCatcher.catchErrors;
 import static be.groep14.domain.util.ToDto.toUserDto;
 import static be.groep14.domain.util.ToDto.toUserDtoList;
 
-@CrossOrigin(origins = {"http://127.0.0.1:8080"}, methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.POST})
 @RestController
 @RequestMapping("/api/user")
 public class UserRestController {
@@ -32,7 +31,7 @@ public class UserRestController {
         return toUserDto(userService.findById(id));
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public UserDto add(@Valid @RequestBody UserDto userDto) {
         return toUserDto(userService.create(userDto));
     }
@@ -46,7 +45,6 @@ public class UserRestController {
     public UserDto put(@PathVariable("id") long id, @Valid @RequestBody UserDto userDto) {
         return toUserDto(userService.update(id, userDto));
     }
-
 
     @PostMapping("/login")
     public UserDto login(@Valid @RequestBody UserLoginDto userLoginDto) {

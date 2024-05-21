@@ -2,7 +2,7 @@
 
 Changes the password for the user associated with the provided email.
 
-**URL:** `/api/user/changePassword`
+**URL:** `/api/user/password`
 
 **Method:** `POST`
 
@@ -18,7 +18,7 @@ The request body should be a JSON object representing the `email` and the `newPa
 ### Example
 Request:
 ```
-POST api/user/changePassword
+POST api/user/password
 ```
 
 

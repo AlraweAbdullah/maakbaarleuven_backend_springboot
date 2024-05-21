@@ -37,7 +37,7 @@ public class UserDto {
     private String password;
 
     @Email(message = "{user.email.not.valid}")
-
+    
     private String email;
 
     private String persons;
